@@ -12,6 +12,7 @@ import {
 } from '../queries/resourceQueries'
 import type { ResourceStatus } from '../domain/resource.types'
 import { resourcePaths } from '../routes'
+import { Heading, Inline, Stack, Text } from '../ui'
 
 const PAGE_SIZE = 10
 
@@ -77,14 +78,16 @@ export function ResourcesListPage() {
   }
 
   return (
-    <div>
-      <PageHeader>
-        <div>
-          <Title>Resources</Title>
-          <Subtitle>Create, track, and complete resources.</Subtitle>
-        </div>
+    <Stack $gap="lg">
+      <Inline $justify="space-between" $align="flex-end" $gap="md">
+        <Stack $gap="xs">
+          <Heading as="h1" $size="page">
+            Resources
+          </Heading>
+          <Text $tone="muted">Create, track, and complete resources.</Text>
+        </Stack>
         <Button onClick={() => setCreateOpen(true)}>+ New resource</Button>
-      </PageHeader>
+      </Inline>
 
       <Filters>
         <Input
@@ -120,23 +123,27 @@ export function ResourcesListPage() {
       ) : items.length === 0 ? (
         <Notice>No resources found. Create your first one.</Notice>
       ) : (
-        <List $stale={isFetching}>
+        <List $gap="sm" $stale={isFetching}>
           {items.map((resource) => {
             const isConfirming = pendingDeleteId === resource.resourceId
             return (
               <Card variant="outline" key={resource._id}>
-                <RowInner>
+                <Inline $justify="space-between" $gap="md">
                   <RowMain
                     type="button"
                     onClick={() => navigate(resourcePaths.overview(resource.resourceId))}
                   >
-                    <Name>{resource.name}</Name>
-                    <Meta>
-                      <span>#{resource.resourceId}</span>
+                    <Text $tone="strong" $weight="semibold">
+                      {resource.name}
+                    </Text>
+                    <Inline $gap="sm">
+                      <Text as="span" $tone="muted" $size="sm">
+                        #{resource.resourceId}
+                      </Text>
                       <StatusBadge status={resource.status} />
-                    </Meta>
+                    </Inline>
                   </RowMain>
-                  <RowActions>
+                  <Inline $gap="sm">
                     {isConfirming ? (
                       <>
                         <Button
@@ -168,8 +175,8 @@ export function ResourcesListPage() {
                         🗑
                       </IconButton>
                     )}
-                  </RowActions>
-                </RowInner>
+                  </Inline>
+                </Inline>
               </Card>
             )
           })}
@@ -181,7 +188,7 @@ export function ResourcesListPage() {
       ) : null}
 
       {pagination && pagination.totalPages > 1 ? (
-        <Pager>
+        <Inline $justify="center" $gap="md">
           <Button
             variant="secondary"
             size="small"
@@ -190,9 +197,9 @@ export function ResourcesListPage() {
           >
             ← Prev
           </Button>
-          <PagerLabel>
+          <Text as="span" $tone="muted" $size="sm">
             Page {pagination.page} of {pagination.totalPages}
-          </PagerLabel>
+          </Text>
           <Button
             variant="secondary"
             size="small"
@@ -201,7 +208,7 @@ export function ResourcesListPage() {
           >
             Next →
           </Button>
-        </Pager>
+        </Inline>
       ) : null}
 
       <Drawer title="Create resource" isOpen={isCreateOpen} onClose={closeCreate}>
@@ -211,71 +218,39 @@ export function ResourcesListPage() {
           onSubmit={handleCreate}
         />
       </Drawer>
-    </div>
+    </Stack>
   )
 }
 
-const PageHeader = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-`
+// Surface comes from Card; only the centered muted text is custom.
+function Notice({ children, ...props }: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <Card variant="outline" {...props}>
+      <Text $tone="muted" $align="center">
+        {children}
+      </Text>
+    </Card>
+  )
+}
 
-const Title = styled.h1`
-  margin: 0;
-  font-family: ${({ theme }) => theme.typography.heading};
-  font-size: 2rem;
-  color: ${({ theme }) => theme.colors.inkStrong};
-`
-
-const Subtitle = styled.p`
-  margin: ${({ theme }) => theme.spacing.xs} 0 0;
-  color: ${({ theme }) => theme.colors.inkMuted};
-`
-
+// Responsive filter grid — no design-system layout primitive for this.
 const Filters = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
 
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
   }
 `
 
-// Surface comes from Card; only the centered muted text is custom.
-function Notice({ children, ...props }: HTMLAttributes<HTMLDivElement>) {
-  return (
-    <Card variant="outline" {...props}>
-      <NoticeText>{children}</NoticeText>
-    </Card>
-  )
-}
-
-const NoticeText = styled.div`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.inkMuted};
-`
-
-const List = styled.div<{ $stale: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
+// Extends the Stack primitive with a dimmed state during background refetch.
+const List = styled(Stack)<{ $stale: boolean }>`
   opacity: ${({ $stale }) => ($stale ? 0.6 : 1)};
   transition: opacity 120ms ease;
 `
 
-// Layout only — the surface comes from Card.
-const RowInner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${({ theme }) => theme.spacing.md};
-`
-
+// A real <button> styled as a clickable row (keyboard/focus accessible).
 const RowMain = styled.button`
   display: flex;
   flex-direction: column;
@@ -288,37 +263,4 @@ const RowMain = styled.button`
   cursor: pointer;
   text-align: left;
   font: inherit;
-`
-
-const Name = styled.span`
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: ${({ theme }) => theme.colors.inkStrong};
-`
-
-const Meta = styled.span`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-  color: ${({ theme }) => theme.colors.inkMuted};
-  font-size: 0.85rem;
-`
-
-const RowActions = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-`
-
-const Pager = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin-top: ${({ theme }) => theme.spacing.lg};
-`
-
-const PagerLabel = styled.span`
-  color: ${({ theme }) => theme.colors.inkMuted};
-  font-size: 0.9rem;
 `

@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
 import styled from 'styled-components'
 import { resourcePaths } from '../routes'
+import { Text } from '../ui'
 
 /** Global app shell: header with the product title + a centered content container. */
 export function AppLayout() {
@@ -8,7 +9,9 @@ export function AppLayout() {
     <Shell>
       <Header>
         <HomeLink to={resourcePaths.list}>Resource Manager</HomeLink>
-        <Tagline>Modular Form Creator</Tagline>
+        <Text as="span" $tone="muted" $size="sm">
+          Modular Form Creator
+        </Text>
       </Header>
       <Main>
         <Outlet />
@@ -38,11 +41,6 @@ const HomeLink = styled(Link)`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.inkStrong};
   text-decoration: none;
-`
-
-const Tagline = styled.span`
-  color: ${({ theme }) => theme.colors.inkMuted};
-  font-size: 0.9rem;
 `
 
 const Main = styled.main`

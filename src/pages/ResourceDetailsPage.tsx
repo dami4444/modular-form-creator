@@ -8,7 +8,7 @@ import {
 } from '../domain/resource.rules'
 import { useResourceOutletContext } from '../features/resources/resourceOutlet'
 import { useEditBuffer } from '../features/resources/EditBufferContext'
-import { Heading } from './pageText'
+import { Callout, Heading, Stack } from '../ui'
 
 const show = (value: string) => (value.trim() ? value : '—')
 const showList = (values: string[]) => (values.length ? values.join(', ') : '—')
@@ -110,14 +110,14 @@ export function ResourceDetailsPage() {
   ]
 
   return (
-    <Stack>
+    <Stack $gap="lg">
       <Card>
         <Heading>Summary</Heading>
         {buffer.isDirty ? (
-          <UnsavedNote role="status">
+          <Callout role="status">
             Your unsaved changes are compared with the saved values below. Submit from the
             banner above to apply them.
-          </UnsavedNote>
+          </Callout>
         ) : null}
         <Definition>
           <dt>Resource ID</dt>
@@ -143,28 +143,11 @@ export function ResourceDetailsPage() {
   )
 }
 
-const Stack = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
-`
-
 const Note = styled.span`
   font-family: ${({ theme }) => theme.typography.body};
   font-size: 0.85rem;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.inkMuted};
-`
-
-// Inline callout (no DS Alert component) — same accent language as the layout banner.
-const UnsavedNote = styled.p`
-  margin: 0;
-  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
-  border-left: 3px solid ${({ theme }) => theme.colors.accent};
-  background: ${({ theme }) => theme.colors.accentSoft};
-  border-radius: ${({ theme }) => theme.radii.sm};
-  color: ${({ theme }) => theme.colors.inkStrong};
-  font-size: 0.9rem;
 `
 
 const Definition = styled.dl`

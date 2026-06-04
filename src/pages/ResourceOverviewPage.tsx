@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import styled from 'styled-components'
 import { Button, Card } from '../design-system'
 import { ModuleProgressList } from '../components/ModuleProgressList'
 import { canProvision } from '../domain/resource.rules'
@@ -7,7 +6,7 @@ import { getErrorMessage } from '../api/client'
 import { useProvisionResource } from '../queries/resourceQueries'
 import { useResourceOutletContext } from '../features/resources/resourceOutlet'
 import { resourcePaths } from '../routes'
-import { Heading, Lead } from './pageText'
+import { Heading, Inline, Stack, Text } from '../ui'
 
 /** Resource overview: module progress, edit entry points, and the provisioning action. */
 export function ResourceOverviewPage() {
@@ -20,11 +19,11 @@ export function ResourceOverviewPage() {
   const provisionReady = canProvision(resource)
 
   return (
-    <Stack>
+    <Stack $gap="lg">
       <Card>
         <Heading>Modules</Heading>
         <ModuleProgressList resource={resource} />
-        <Row>
+        <Inline $wrap>
           <Button
             variant="secondary"
             onClick={() => navigate(resourcePaths.basicInfo(resourceId))}
@@ -37,72 +36,52 @@ export function ResourceOverviewPage() {
           >
             Edit Project Details
           </Button>
-        </Row>
+        </Inline>
       </Card>
 
       <Card>
         <Heading>{isDraft ? 'Provisioning' : 'Status'}</Heading>
         {isDraft ? (
           <>
-            <Lead>
+            <Text $tone="muted">
               Provisioning moves this resource from draft to completed. It is allowed only
               when both modules are complete.
-            </Lead>
-            <Row>
+            </Text>
+            <Inline $wrap>
               <Button
                 onClick={() => provision.mutate()}
                 disabled={!provisionReady || provision.isPending}
               >
                 {provision.isPending ? 'Provisioning…' : 'Provision resource'}
               </Button>
-            </Row>
+            </Inline>
             {!provisionReady ? (
-              <Hint>Complete both modules to enable provisioning.</Hint>
+              <Text $tone="muted" $size="sm">
+                Complete both modules to enable provisioning.
+              </Text>
             ) : null}
             {provision.isError ? (
-              <ServerError role="alert">{getErrorMessage(provision.error)}</ServerError>
+              <Text $tone="error" role="alert">
+                {getErrorMessage(provision.error)}
+              </Text>
             ) : null}
           </>
         ) : (
-          <Lead>
+          <Text $tone="muted">
             This resource is completed. Edit a module to stage changes, then submit them
             from the banner above. Re-provisioning is not allowed.
-          </Lead>
+          </Text>
         )}
       </Card>
 
-      <Row>
+      <Inline $wrap>
         <Button
           variant="ghost"
           onClick={() => navigate(resourcePaths.details(resourceId))}
         >
           View details →
         </Button>
-      </Row>
+      </Inline>
     </Stack>
   )
 }
-
-const Stack = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
-`
-
-const Row = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing.sm};
-`
-
-const Hint = styled.p`
-  margin: 0;
-  color: ${({ theme }) => theme.colors.inkMuted};
-  font-size: 0.85rem;
-`
-
-const ServerError = styled.p`
-  margin: 0;
-  color: ${({ theme }) => theme.colors.warning};
-  font-size: 0.9rem;
-`

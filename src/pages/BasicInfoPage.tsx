@@ -7,7 +7,7 @@ import { useUpdateBasicInfo } from '../queries/resourceQueries'
 import { useResourceOutletContext } from '../features/resources/resourceOutlet'
 import { useEditBuffer } from '../features/resources/EditBufferContext'
 import { resourcePaths } from '../routes'
-import { Heading, Lead } from './pageText'
+import { Heading, Text } from '../ui'
 
 /**
  * Basic Info module page.
@@ -42,11 +42,11 @@ export function BasicInfoPage() {
   return (
     <Card>
       <Heading>Basic Info</Heading>
-      <Lead>
+      <Text $tone="muted">
         {isCompleted
           ? 'Changes are staged locally and applied only when you submit from the overview.'
           : 'Complete every field to unlock Project Details.'}
-      </Lead>
+      </Text>
       <BasicInfoForm
         defaultValues={defaultValues}
         submitLabel={isCompleted ? 'Stage changes' : 'Save Basic Info'}

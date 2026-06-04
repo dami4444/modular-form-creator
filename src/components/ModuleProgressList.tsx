@@ -1,7 +1,7 @@
-import styled from 'styled-components'
 import { Badge, Card } from '../design-system'
 import type { Resource } from '../domain/resource.types'
 import { isBasicInfoComplete, isProjectDetailsComplete } from '../domain/resource.rules'
+import { Inline, Stack, Text } from '../ui'
 
 type ModuleState =
   | { kind: 'complete' }
@@ -33,53 +33,35 @@ export function ModuleProgressList({ resource }: { resource: Resource }) {
   }
 
   return (
-    <List>
+    <Stack $gap="sm">
       <Card variant="elevated">
-        <Item>
+        <Inline $justify="space-between" $gap="md">
           <div>
-            <Name>Basic Info</Name>
-            <Hint>Resource name, owner, contact, priority</Hint>
+            <Text $tone="strong" $weight="semibold">
+              Basic Info
+            </Text>
+            <Text $tone="muted" $size="sm">
+              Resource name, owner, contact, priority
+            </Text>
           </div>
           {renderBadge(basicState)}
-        </Item>
+        </Inline>
       </Card>
       <Card variant="elevated">
-        <Item>
+        <Inline $justify="space-between" $gap="md">
           <div>
-            <Name>Project Details</Name>
-            <Hint>
+            <Text $tone="strong" $weight="semibold">
+              Project Details
+            </Text>
+            <Text $tone="muted" $size="sm">
               {projectState.kind === 'locked'
                 ? projectState.reason
                 : 'Project name, budget, category, team'}
-            </Hint>
+            </Text>
           </div>
           {renderBadge(projectState)}
-        </Item>
+        </Inline>
       </Card>
-    </List>
+    </Stack>
   )
 }
-
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
-`
-
-// Layout only — the surface (border/background/radius/padding) comes from Card.
-const Item = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${({ theme }) => theme.spacing.md};
-`
-
-const Name = styled.div`
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.inkStrong};
-`
-
-const Hint = styled.div`
-  font-size: 0.85rem;
-  color: ${({ theme }) => theme.colors.inkMuted};
-`

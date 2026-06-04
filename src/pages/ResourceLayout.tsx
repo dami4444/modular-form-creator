@@ -9,6 +9,7 @@ import { useEditBuffer } from '../features/resources/EditBufferContext'
 import type { ResourceOutletContext } from '../features/resources/resourceOutlet'
 import type { Resource } from '../domain/resource.types'
 import { resourcePaths } from '../routes'
+import { Heading, Inline } from '../ui'
 
 /** Banner shown for completed resources that have staged (unsaved) edits in the buffer. */
 function UnsavedChangesBanner({ resourceId }: { resourceId: string }) {
@@ -59,13 +60,15 @@ function ResourceHeader({
 }) {
   return (
     <Header>
-      <TopRow>
+      <Inline $justify="space-between" $align="flex-start" $gap="md">
         <div>
           <BackLink to={resourcePaths.list}>← All resources</BackLink>
-          <Title>{resource.name}</Title>
+          <Heading as="h1" $size="resource">
+            {resource.name}
+          </Heading>
         </div>
         <StatusBadge status={resource.status} />
-      </TopRow>
+      </Inline>
       <Tabs>
         <Tab to={resourcePaths.overview(resourceId)} end>
           Overview
@@ -121,26 +124,12 @@ const Header = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
 `
 
-const TopRow = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: ${({ theme }) => theme.spacing.md};
-`
-
 const BackLink = styled(Link)`
   display: inline-block;
   margin-bottom: ${({ theme }) => theme.spacing.xs};
   color: ${({ theme }) => theme.colors.primary};
   text-decoration: none;
   font-size: 0.9rem;
-`
-
-const Title = styled.h1`
-  margin: 0;
-  font-family: ${({ theme }) => theme.typography.heading};
-  font-size: 1.9rem;
-  color: ${({ theme }) => theme.colors.inkStrong};
 `
 
 const Tabs = styled.nav`

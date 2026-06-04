@@ -3,7 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '../design-system'
 import { createResourceSchema } from '../domain/resource.schema'
 import type { CreateResourceFormValues } from '../domain/resource.schema'
-import { Form, ServerError } from './formLayout'
+import { Form } from './formLayout'
+import { Text } from '../ui'
 
 interface CreateResourceFormProps {
   submitting?: boolean
@@ -44,7 +45,11 @@ export function CreateResourceForm({
         )}
       />
 
-      {errorMessage ? <ServerError role="alert">{errorMessage}</ServerError> : null}
+      {errorMessage ? (
+        <Text $tone="error" role="alert">
+          {errorMessage}
+        </Text>
+      ) : null}
 
       <Button type="submit" fullWidth disabled={submitting}>
         {submitting ? 'Creating…' : 'Create resource'}

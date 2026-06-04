@@ -4,7 +4,8 @@ import { Button, Input, Select } from '../design-system'
 import { PRIORITY_OPTIONS } from '../domain/resource.rules'
 import { basicInfoSchema } from '../domain/resource.schema'
 import type { BasicInfoFormValues } from '../domain/resource.schema'
-import { Actions, Form, ServerError } from './formLayout'
+import { Form } from './formLayout'
+import { Inline, Text } from '../ui'
 
 interface BasicInfoFormProps {
   defaultValues: BasicInfoFormValues
@@ -116,13 +117,17 @@ export function BasicInfoForm({
         )}
       />
 
-      {errorMessage ? <ServerError role="alert">{errorMessage}</ServerError> : null}
+      {errorMessage ? (
+        <Text $tone="error" role="alert">
+          {errorMessage}
+        </Text>
+      ) : null}
 
-      <Actions>
+      <Inline>
         <Button type="submit" disabled={submitting || !isDirty}>
           {submitting ? 'Saving…' : submitLabel}
         </Button>
-      </Actions>
+      </Inline>
     </Form>
   )
 }
