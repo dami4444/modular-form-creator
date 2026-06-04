@@ -5,7 +5,7 @@ import { CATEGORY_OPTIONS, TEAM_MEMBER_VALUES } from '../domain/resource.rules'
 import { projectDetailsSchema } from '../domain/resource.schema'
 import type { ProjectDetailsFormValues } from '../domain/resource.schema'
 import { Form } from './formLayout'
-import { Inline, Text } from '../ui'
+import { Inline, Text } from '../components/ui'
 
 interface ProjectDetailsFormProps {
   defaultValues: ProjectDetailsFormValues
@@ -105,7 +105,7 @@ export function ProjectDetailsForm({
       />
 
       {errorMessage ? (
-        <Text $tone="error" role="alert">
+        <Text tone="error" role="alert">
           {errorMessage}
         </Text>
       ) : null}

@@ -12,7 +12,7 @@ import {
 } from '../queries/resourceQueries'
 import type { ResourceStatus } from '../domain/resource.types'
 import { resourcePaths } from '../routes'
-import { Heading, Inline, Stack, Text } from '../ui'
+import { Heading, Inline, Stack, Text } from '../components/ui'
 
 const PAGE_SIZE = 10
 
@@ -78,13 +78,13 @@ export function ResourcesListPage() {
   }
 
   return (
-    <Stack $gap="lg">
-      <Inline $justify="space-between" $align="flex-end" $gap="md">
-        <Stack $gap="xs">
-          <Heading as="h1" $size="page">
+    <Stack gap="lg">
+      <Inline justify="space-between" align="flex-end" gap="md">
+        <Stack gap="xs">
+          <Heading as="h1" size="page">
             Resources
           </Heading>
-          <Text $tone="muted">Create, track, and complete resources.</Text>
+          <Text tone="muted">Create, track, and complete resources.</Text>
         </Stack>
         <Button onClick={() => setCreateOpen(true)}>+ New resource</Button>
       </Inline>
@@ -123,27 +123,27 @@ export function ResourcesListPage() {
       ) : items.length === 0 ? (
         <Notice>No resources found. Create your first one.</Notice>
       ) : (
-        <List $gap="sm" $stale={isFetching}>
+        <List gap="sm" stale={isFetching}>
           {items.map((resource) => {
             const isConfirming = pendingDeleteId === resource.resourceId
             return (
               <Card variant="outline" key={resource._id}>
-                <Inline $justify="space-between" $gap="md">
+                <Inline justify="space-between" gap="md">
                   <RowMain
                     type="button"
                     onClick={() => navigate(resourcePaths.overview(resource.resourceId))}
                   >
-                    <Text $tone="strong" $weight="semibold">
+                    <Text tone="strong" weight="semibold">
                       {resource.name}
                     </Text>
-                    <Inline $gap="sm">
-                      <Text as="span" $tone="muted" $size="sm">
+                    <Inline gap="sm">
+                      <Text as="span" tone="muted" size="sm">
                         #{resource.resourceId}
                       </Text>
                       <StatusBadge status={resource.status} />
                     </Inline>
                   </RowMain>
-                  <Inline $gap="sm">
+                  <Inline gap="sm">
                     {isConfirming ? (
                       <>
                         <Button
@@ -188,7 +188,7 @@ export function ResourcesListPage() {
       ) : null}
 
       {pagination && pagination.totalPages > 1 ? (
-        <Inline $justify="center" $gap="md">
+        <Inline justify="center" gap="md">
           <Button
             variant="secondary"
             size="small"
@@ -197,7 +197,7 @@ export function ResourcesListPage() {
           >
             ← Prev
           </Button>
-          <Text as="span" $tone="muted" $size="sm">
+          <Text as="span" tone="muted" size="sm">
             Page {pagination.page} of {pagination.totalPages}
           </Text>
           <Button
@@ -226,7 +226,7 @@ export function ResourcesListPage() {
 function Notice({ children, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <Card variant="outline" {...props}>
-      <Text $tone="muted" $align="center">
+      <Text tone="muted" align="center">
         {children}
       </Text>
     </Card>
@@ -245,8 +245,10 @@ const Filters = styled.div`
 `
 
 // Extends the Stack primitive with a dimmed state during background refetch.
-const List = styled(Stack)<{ $stale: boolean }>`
-  opacity: ${({ $stale }) => ($stale ? 0.6 : 1)};
+const List = styled(Stack).withConfig({
+  shouldForwardProp: (prop) => prop !== 'stale',
+})<{ stale: boolean }>`
+  opacity: ${({ stale }) => (stale ? 0.6 : 1)};
   transition: opacity 120ms ease;
 `
 

@@ -4,7 +4,7 @@ import { Button, Input } from '../design-system'
 import { createResourceSchema } from '../domain/resource.schema'
 import type { CreateResourceFormValues } from '../domain/resource.schema'
 import { Form } from './formLayout'
-import { Text } from '../ui'
+import { Text } from '../components/ui'
 
 interface CreateResourceFormProps {
   submitting?: boolean
@@ -46,7 +46,7 @@ export function CreateResourceForm({
       />
 
       {errorMessage ? (
-        <Text $tone="error" role="alert">
+        <Text tone="error" role="alert">
           {errorMessage}
         </Text>
       ) : null}

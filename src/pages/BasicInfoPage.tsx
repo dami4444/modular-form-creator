@@ -7,7 +7,7 @@ import { useUpdateBasicInfo } from '../queries/resourceQueries'
 import { useResourceOutletContext } from '../features/resources/resourceOutlet'
 import { useEditBuffer } from '../features/resources/EditBufferContext'
 import { resourcePaths } from '../routes'
-import { Heading, Text } from '../ui'
+import { Heading, Text } from '../components/ui'
 
 /**
  * Basic Info module page.
@@ -42,7 +42,7 @@ export function BasicInfoPage() {
   return (
     <Card>
       <Heading>Basic Info</Heading>
-      <Text $tone="muted">
+      <Text tone="muted">
         {isCompleted
           ? 'Changes are staged locally and applied only when you submit from the overview.'
           : 'Complete every field to unlock Project Details.'}

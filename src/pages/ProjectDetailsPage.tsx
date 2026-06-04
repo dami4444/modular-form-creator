@@ -8,7 +8,7 @@ import { useUpdateProjectDetails } from '../queries/resourceQueries'
 import { useResourceOutletContext } from '../features/resources/resourceOutlet'
 import { useEditBuffer } from '../features/resources/EditBufferContext'
 import { resourcePaths } from '../routes'
-import { Heading, Text } from '../ui'
+import { Heading, Text } from '../components/ui'
 
 /**
  * Project Details module page.
@@ -29,7 +29,7 @@ export function ProjectDetailsPage() {
     return (
       <Card>
         <Heading>Project Details</Heading>
-        <Text $tone="muted">This module unlocks once Basic Info is complete.</Text>
+        <Text tone="muted">This module unlocks once Basic Info is complete.</Text>
         <div>
           <Button onClick={() => navigate(resourcePaths.basicInfo(resourceId))}>
             Go to Basic Info
@@ -57,7 +57,7 @@ export function ProjectDetailsPage() {
   return (
     <Card>
       <Heading>Project Details</Heading>
-      <Text $tone="muted">
+      <Text tone="muted">
         {isCompleted
           ? 'Changes are staged locally and applied only when you submit from the overview.'
           : 'Complete every field to enable provisioning.'}

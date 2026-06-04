@@ -1,7 +1,7 @@
 import { Badge, Card } from '../design-system'
 import type { Resource } from '../domain/resource.types'
 import { isBasicInfoComplete, isProjectDetailsComplete } from '../domain/resource.rules'
-import { Inline, Stack, Text } from '../ui'
+import { Inline, Stack, Text } from './ui'
 
 type ModuleState =
   | { kind: 'complete' }
@@ -33,14 +33,14 @@ export function ModuleProgressList({ resource }: { resource: Resource }) {
   }
 
   return (
-    <Stack $gap="sm">
+    <Stack gap="sm">
       <Card variant="elevated">
-        <Inline $justify="space-between" $gap="md">
+        <Inline justify="space-between" gap="md">
           <div>
-            <Text $tone="strong" $weight="semibold">
+            <Text tone="strong" weight="semibold">
               Basic Info
             </Text>
-            <Text $tone="muted" $size="sm">
+            <Text tone="muted" size="sm">
               Resource name, owner, contact, priority
             </Text>
           </div>
@@ -48,12 +48,12 @@ export function ModuleProgressList({ resource }: { resource: Resource }) {
         </Inline>
       </Card>
       <Card variant="elevated">
-        <Inline $justify="space-between" $gap="md">
+        <Inline justify="space-between" gap="md">
           <div>
-            <Text $tone="strong" $weight="semibold">
+            <Text tone="strong" weight="semibold">
               Project Details
             </Text>
-            <Text $tone="muted" $size="sm">
+            <Text tone="muted" size="sm">
               {projectState.kind === 'locked'
                 ? projectState.reason
                 : 'Project name, budget, category, team'}

@@ -1,7 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
 import styled from 'styled-components'
 import { resourcePaths } from '../routes'
-import { Text } from '../ui'
+import { Text } from './ui'
 
 /** Global app shell: header with the product title + a centered content container. */
 export function AppLayout() {
@@ -9,7 +9,7 @@ export function AppLayout() {
     <Shell>
       <Header>
         <HomeLink to={resourcePaths.list}>Resource Manager</HomeLink>
-        <Text as="span" $tone="muted" $size="sm">
+        <Text as="span" tone="muted" size="sm">
           Modular Form Creator
         </Text>
       </Header>

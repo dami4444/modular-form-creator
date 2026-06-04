@@ -5,7 +5,7 @@ import { PRIORITY_OPTIONS } from '../domain/resource.rules'
 import { basicInfoSchema } from '../domain/resource.schema'
 import type { BasicInfoFormValues } from '../domain/resource.schema'
 import { Form } from './formLayout'
-import { Inline, Text } from '../ui'
+import { Inline, Text } from '../components/ui'
 
 interface BasicInfoFormProps {
   defaultValues: BasicInfoFormValues
@@ -118,7 +118,7 @@ export function BasicInfoForm({
       />
 
       {errorMessage ? (
-        <Text $tone="error" role="alert">
+        <Text tone="error" role="alert">
           {errorMessage}
         </Text>
       ) : null}

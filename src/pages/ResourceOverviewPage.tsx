@@ -6,7 +6,7 @@ import { getErrorMessage } from '../api/client'
 import { useProvisionResource } from '../queries/resourceQueries'
 import { useResourceOutletContext } from '../features/resources/resourceOutlet'
 import { resourcePaths } from '../routes'
-import { Heading, Inline, Stack, Text } from '../ui'
+import { Heading, Inline, Stack, Text } from '../components/ui'
 
 /** Resource overview: module progress, edit entry points, and the provisioning action. */
 export function ResourceOverviewPage() {
@@ -19,11 +19,11 @@ export function ResourceOverviewPage() {
   const provisionReady = canProvision(resource)
 
   return (
-    <Stack $gap="lg">
+    <Stack gap="lg">
       <Card>
         <Heading>Modules</Heading>
         <ModuleProgressList resource={resource} />
-        <Inline $wrap>
+        <Inline wrap>
           <Button
             variant="secondary"
             onClick={() => navigate(resourcePaths.basicInfo(resourceId))}
@@ -43,11 +43,11 @@ export function ResourceOverviewPage() {
         <Heading>{isDraft ? 'Provisioning' : 'Status'}</Heading>
         {isDraft ? (
           <>
-            <Text $tone="muted">
+            <Text tone="muted">
               Provisioning moves this resource from draft to completed. It is allowed only
               when both modules are complete.
             </Text>
-            <Inline $wrap>
+            <Inline wrap>
               <Button
                 onClick={() => provision.mutate()}
                 disabled={!provisionReady || provision.isPending}
@@ -56,25 +56,25 @@ export function ResourceOverviewPage() {
               </Button>
             </Inline>
             {!provisionReady ? (
-              <Text $tone="muted" $size="sm">
+              <Text tone="muted" size="sm">
                 Complete both modules to enable provisioning.
               </Text>
             ) : null}
             {provision.isError ? (
-              <Text $tone="error" role="alert">
+              <Text tone="error" role="alert">
                 {getErrorMessage(provision.error)}
               </Text>
             ) : null}
           </>
         ) : (
-          <Text $tone="muted">
+          <Text tone="muted">
             This resource is completed. Edit a module to stage changes, then submit them
             from the banner above. Re-provisioning is not allowed.
           </Text>
         )}
       </Card>
 
-      <Inline $wrap>
+      <Inline wrap>
         <Button
           variant="ghost"
           onClick={() => navigate(resourcePaths.details(resourceId))}

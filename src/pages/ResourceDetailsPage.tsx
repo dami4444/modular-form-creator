@@ -8,7 +8,7 @@ import {
 } from '../domain/resource.rules'
 import { useResourceOutletContext } from '../features/resources/resourceOutlet'
 import { useEditBuffer } from '../features/resources/EditBufferContext'
-import { Callout, Heading, Stack } from '../ui'
+import { Callout, Heading, Stack } from '../components/ui'
 
 const show = (value: string) => (value.trim() ? value : '—')
 const showList = (values: string[]) => (values.length ? values.join(', ') : '—')
@@ -63,7 +63,7 @@ function ModuleDetails({
             <Fragment key={field.label}>
               <RowLabel>{field.label}</RowLabel>
               <Cell>{show(field.saved)}</Cell>
-              <StagedCell $changed={field.changed}>
+              <StagedCell changed={field.changed}>
                 {show(field.staged)}
                 {field.changed ? <Tag>changed</Tag> : null}
               </StagedCell>
@@ -110,7 +110,7 @@ export function ResourceDetailsPage() {
   ]
 
   return (
-    <Stack $gap="lg">
+    <Stack gap="lg">
       <Card>
         <Heading>Summary</Heading>
         {buffer.isDirty ? (
@@ -192,11 +192,13 @@ const Cell = styled.span`
   overflow-wrap: anywhere;
 `
 
-const StagedCell = styled.span<{ $changed: boolean }>`
+const StagedCell = styled.span.withConfig({
+  shouldForwardProp: (prop) => prop !== 'changed',
+})<{ changed: boolean }>`
   overflow-wrap: anywhere;
   color: ${({ theme }) => theme.colors.inkMuted};
-  ${({ $changed, theme }) =>
-    $changed &&
+  ${({ changed, theme }) =>
+    changed &&
     css`
       color: ${theme.colors.inkStrong};
       font-weight: 600;

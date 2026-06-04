@@ -9,7 +9,7 @@ import { useEditBuffer } from '../features/resources/EditBufferContext'
 import type { ResourceOutletContext } from '../features/resources/resourceOutlet'
 import type { Resource } from '../domain/resource.types'
 import { resourcePaths } from '../routes'
-import { Heading, Inline } from '../ui'
+import { Heading, Inline } from '../components/ui'
 
 /** Banner shown for completed resources that have staged (unsaved) edits in the buffer. */
 function UnsavedChangesBanner({ resourceId }: { resourceId: string }) {
@@ -60,10 +60,10 @@ function ResourceHeader({
 }) {
   return (
     <Header>
-      <Inline $justify="space-between" $align="flex-start" $gap="md">
+      <Inline justify="space-between" align="flex-start" gap="md">
         <div>
           <BackLink to={resourcePaths.list}>← All resources</BackLink>
-          <Heading as="h1" $size="resource">
+          <Heading as="h1" size="resource">
             {resource.name}
           </Heading>
         </div>
