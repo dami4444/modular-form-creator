@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import type { BasicInfo, ProjectDetails, Resource } from '../../domain/resource.types'
-import { sameStringSet } from '../../domain/resource.rules'
+import type { BasicInfo, ProjectDetails, Resource } from '../domain/resource.types'
+import { sameStringSet } from '../domain/resource.rules'
 import { EditBufferContext } from './EditBufferContext'
 import type { EditBufferValue } from './EditBufferContext'
 

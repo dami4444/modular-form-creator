@@ -4,7 +4,7 @@ import { ModuleProgressList } from '../components/ModuleProgressList'
 import { canProvision } from '../domain/resource.rules'
 import { getErrorMessage } from '../api/client'
 import { useProvisionResource } from '../queries/resourceQueries'
-import { useResourceOutletContext } from '../features/resources/resourceOutlet'
+import { useResourceOutletContext } from '../context/resourceOutlet'
 import { resourcePaths } from '../routes'
 import { Heading, Inline, Stack, Text } from '../components/ui'
 

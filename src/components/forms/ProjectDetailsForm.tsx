@@ -1,11 +1,11 @@
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, CheckboxGroup, Input, Select } from '../design-system'
-import { CATEGORY_OPTIONS, TEAM_MEMBER_VALUES } from '../domain/resource.rules'
-import { projectDetailsSchema } from '../domain/resource.schema'
-import type { ProjectDetailsFormValues } from '../domain/resource.schema'
+import { Button, CheckboxGroup, Input, Select } from '../../design-system'
+import { CATEGORY_OPTIONS, TEAM_MEMBER_VALUES } from '../../domain/resource.rules'
+import { projectDetailsSchema } from '../../domain/resource.schema'
+import type { ProjectDetailsFormValues } from '../../domain/resource.schema'
 import { Form } from './formLayout'
-import { Inline, Text } from '../components/ui'
+import { Inline, Text } from '../ui'
 
 interface ProjectDetailsFormProps {
   defaultValues: ProjectDetailsFormValues

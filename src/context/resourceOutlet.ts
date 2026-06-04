@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router-dom'
-import type { Resource } from '../../domain/resource.types'
+import type { Resource } from '../domain/resource.types'
 
 export interface ResourceOutletContext {
   resource: Resource

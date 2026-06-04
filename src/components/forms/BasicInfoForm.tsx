@@ -1,11 +1,11 @@
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input, Select } from '../design-system'
-import { PRIORITY_OPTIONS } from '../domain/resource.rules'
-import { basicInfoSchema } from '../domain/resource.schema'
-import type { BasicInfoFormValues } from '../domain/resource.schema'
+import { Button, Input, Select } from '../../design-system'
+import { PRIORITY_OPTIONS } from '../../domain/resource.rules'
+import { basicInfoSchema } from '../../domain/resource.schema'
+import type { BasicInfoFormValues } from '../../domain/resource.schema'
 import { Form } from './formLayout'
-import { Inline, Text } from '../components/ui'
+import { Inline, Text } from '../ui'
 
 interface BasicInfoFormProps {
   defaultValues: BasicInfoFormValues

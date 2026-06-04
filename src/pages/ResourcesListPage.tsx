@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Button, Card, Drawer, IconButton, Input, Select } from '../design-system'
 import { StatusBadge } from '../components/StatusBadge'
-import { CreateResourceForm } from '../forms/CreateResourceForm'
+import { CreateResourceForm } from '../components/forms/CreateResourceForm'
 import { getErrorMessage } from '../api/client'
 import {
   useCreateResource,

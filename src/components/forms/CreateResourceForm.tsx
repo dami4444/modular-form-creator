@@ -1,10 +1,10 @@
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '../design-system'
-import { createResourceSchema } from '../domain/resource.schema'
-import type { CreateResourceFormValues } from '../domain/resource.schema'
+import { Button, Input } from '../../design-system'
+import { createResourceSchema } from '../../domain/resource.schema'
+import type { CreateResourceFormValues } from '../../domain/resource.schema'
 import { Form } from './formLayout'
-import { Text } from '../components/ui'
+import { Text } from '../ui'
 
 interface CreateResourceFormProps {
   submitting?: boolean

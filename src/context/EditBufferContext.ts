@@ -1,9 +1,5 @@
 import { createContext, useContext } from 'react'
-import type {
-  BasicInfo,
-  ProjectDetails,
-  ResourcePayload,
-} from '../../domain/resource.types'
+import type { BasicInfo, ProjectDetails, ResourcePayload } from '../domain/resource.types'
 
 /**
  * In-memory, non-persistent edit buffer for a completed resource.

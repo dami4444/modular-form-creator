@@ -6,8 +6,8 @@ import {
   isProjectDetailsComplete,
   sameStringSet,
 } from '../domain/resource.rules'
-import { useResourceOutletContext } from '../features/resources/resourceOutlet'
-import { useEditBuffer } from '../features/resources/EditBufferContext'
+import { useResourceOutletContext } from '../context/resourceOutlet'
+import { useEditBuffer } from '../context/EditBufferContext'
 import { Callout, Heading, Stack } from '../components/ui'
 
 const show = (value: string) => (value.trim() ? value : '—')
