@@ -1,0 +1,24 @@
+# Host-native dependencies — reinstalled (linux) inside the image
+node_modules
+**/node_modules
+
+# Build outputs
+dist
+dist-ssr
+storybook-static
+
+# Not needed to build the frontend image
+backend
+e2e
+playwright-report
+test-results
+playwright/.cache
+
+# VCS / editor / logs / OS cruft
+.git
+.gitignore
+*.log
+logs
+.DS_Store
+.vscode
+.idea

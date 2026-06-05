@@ -12,20 +12,26 @@ and a completed-resource edit buffer that persists only via a full `PUT` on expl
 
 ## Prerequisites
 
-- Node 20+
-- The backend running on `http://localhost:5001` (see [`backend/README.md`](backend/README.md))
+- Docker — for the one-command full stack (below)
+- Node 20+ — only for the local dev-server workflow
 
-Start the full stack with Docker:
+## Run the full stack with Docker (frontend + backend + Mongo)
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
-(Or run `backend/` directly against a local MongoDB by setting `MONGO_URI`.)
+- Frontend (nginx-served production build): http://localhost:5173
+- Backend API: http://localhost:5001 — Swagger at [`/docs`](http://localhost:5001/docs)
 
-## Run the app
+Tear down with `docker compose down` (add `-v` to also drop the Mongo data volume).
+
+## Run the app locally (Vite dev server with HMR)
+
+Start just the backend + database in Docker (leaves port 5173 free for Vite):
 
 ```bash
+docker compose up -d backend mongo
 npm install
 npm run dev          # http://localhost:5173
 ```
@@ -77,3 +83,9 @@ src/
   routes.ts     centralized route paths (kept in sync with App.tsx)
   design-system/  in-repo design system — do not modify
 ```
+
+## Container setup
+
+- [`Dockerfile`](Dockerfile) — multi-stage frontend image: Vite production build served by nginx, with SPA fallback in [`nginx.conf`](nginx.conf)
+- [`docker-compose.yml`](docker-compose.yml) — `frontend` (5173) · `backend` (5001) · `mongo` (27017)
+- [`backend/Dockerfile`](backend/Dockerfile) — backend image (unchanged)
