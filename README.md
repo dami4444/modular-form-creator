@@ -66,11 +66,14 @@ Spec: [`e2e/business-logic.spec.ts`](e2e/business-logic.spec.ts).
 
 ```
 src/
-  api/        fetch client + per-endpoint functions
-  domain/     types, business rules, and Zod schemas mirrored from the backend
-  queries/    TanStack Query hooks + query keys
-  features/   completed-resource edit buffer (context + provider)
-  components/  shared presentational pieces (layout, status badge, module progress)
-  forms/      React Hook Form module forms
-  pages/      route pages + the resource layout
+  api/          fetch client + per-endpoint functions
+  domain/       types, business rules, and Zod schemas mirrored from the backend
+  queries/      TanStack Query hooks + query keys
+  context/      completed-resource edit buffer (context + provider) + resource outlet hook
+  components/   shared presentational pieces (layout, status badge, module progress)
+    forms/      React Hook Form module forms
+    ui/         styled layout & typography primitives (Stack, Inline, Text, Heading, Callout)
+  pages/        route pages + the resource layout
+  routes.ts     centralized route paths (kept in sync with App.tsx)
+  design-system/  in-repo design system — do not modify
 ```
